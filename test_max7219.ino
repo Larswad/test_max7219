@@ -1,15 +1,15 @@
 #include <max7219.h>
 
 //#define TEST_PATTERN_MOVEMENT
-//#define TEST_PERCENTAGE
-#define TEST_SCROLLING
+#define TEST_PERCENTAGE
+//#define TEST_SCROLLING
 
 Max7219* pMax;
 
 const byte PROGMEM INPIN = 11, LOADPIN = 13, CLOCKPIN = 12;
 
 #ifdef TEST_SCROLLING
-static byte PROGMEM myText[] = "   HEJSAN ALLA GLADA BARNEN, DETTA E LARS MED SIN NYA MAX7219 SCROLL...    ";
+static byte myText[] = "   HEJSAN ALLA GLADA BARNEN, DETTA E LARS MED SIN NYA MAX7219 SCROLL...    ";
 #endif
 
 static void flashIntensity(byte speed = 1);
@@ -51,6 +51,12 @@ void loop ()
 #endif
 
 #ifdef TEST_PERCENTAGE
+	pMax->resetPercentage(25200);
+	for(word i = 0; i <= 25200; i+= 16) {
+		if(!(i % 32))
+			pMax->showPercentage(i);
+		delay(5);
+	}
 	// test percantage increase, from 0 to 1000 in quarter steps.
 	while(1) {
 		pMax->resetPercentage(1000);
