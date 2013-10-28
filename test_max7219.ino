@@ -1,15 +1,15 @@
 #include <max7219.h>
 
 //#define TEST_PATTERN_MOVEMENT
-#define TEST_PERCENTAGE
-//#define TEST_SCROLLING
+//#define TEST_PERCENTAGE
+#define TEST_SCROLLING
 
 Max7219* pMax;
 
 const byte PROGMEM INPIN = 11, LOADPIN = 13, CLOCKPIN = 12;
 
 #ifdef TEST_SCROLLING
-static byte myText[] = "   HEJSAN ALLA GLADA BARNEN, DETTA E LARS MED SIN NYA MAX7219 SCROLL...    ";
+static const byte myText[] PROGMEM = "   HEJSAN ALLA GLADA BARNEN, DETTA E LARS MED SIN NYA MAX7219 SCROLL...    ";
 #endif
 
 static void flashIntensity(byte speed = 1);
@@ -29,7 +29,7 @@ void loop ()
 #ifdef TEST_PATTERN_MOVEMENT
 	// just a funny pattern movement.
 	while(1) {
-		static byte PROGMEM arr[8] = { 1, 2, 4, 8, 16, 32, 64, 128 };
+		static byte arr[8] = { 1, 2, 4, 8, 16, 32, 64, 128 };
 		static boolean dir[8] = { false, false, false, false, false, false, false, false };
 		for(byte i = 0; i < sizeof(arr); ++i) {
 			pMax->maxSingle(i + 1, arr[i]);
